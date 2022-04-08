@@ -19,10 +19,11 @@
 
 // import cockpit from 'cockpit';
 import React from 'react';
+// import FontAwesomeIcon from 'react-fontawesome';
 import { Page, PageSection, Stack } from '@patternfly/react-core';
 import ConfigFileHandler from "./ConfigFileHandler.jsx";
-import Header from "./Header.jsx";
-import GlobalSettings from "./GlobalSettings.jsx";
+// import Header from "./Header.jsx";
+// import GlobalSettings from "./GlobalSettings.jsx";
 import Shares from "./Shares.jsx";
 
 // const _ = cockpit.gettext;
@@ -34,20 +35,19 @@ export class Application extends React.Component {
     }
 
     render() {
-        const header = <Header />;
-        const globalSettings = <GlobalSettings handler={this.state.handler} />;
+        // const header = <Header />;
+        // const globalSettings = <GlobalSettings handler={this.state.handler} />;
         const shares = <Shares handler={this.state.handler} />;
 
         return (
             <Page id="overview" key="overview">
                 <PageSection>
                     <Stack hasGutter>
-                        {header}
-                        {globalSettings}
                         {shares}
                     </Stack>
                 </PageSection>
             </Page>
         );
+        // <FontAwesomeIcon icon={["fa-solid", "fa-trash-can"]} />
     }
 }

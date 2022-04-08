@@ -6,6 +6,8 @@ import {
 import { ListingTable } from "cockpit-components-table.jsx";
 import './Shares.css';
 import ShareActions from "./ShareActions.jsx";
+import CreateShareModal from "./CreateShareModal.jsx";
+import EditGlobalSettingsModal from "./EditGlobalSettingsModal.jsx";
 
 import cockpit from 'cockpit';
 const _ = cockpit.gettext;
@@ -17,6 +19,7 @@ export default class Shares extends React.Component {
         this.state = {
             width: 0,
             handler: props.handler,
+            showEditGlobalSettingsModal: false,
             showCreateShareModal: false
         };
 
@@ -33,7 +36,7 @@ export default class Shares extends React.Component {
                             variant="secondary"
                             key="get-new-image-action"
                             id="shares-shares-edit-settings-btn"
-                            onClick={() => this.setState({ showCreateShareModal: true })}
+                            onClick={() => this.setState({ showEditGlobalSettingsModal: true })}
                         >
                             {_("Edit Global Settings")}
                         </Button>
@@ -49,6 +52,16 @@ export default class Shares extends React.Component {
                         </Button>
                     </ToolbarItem>
                 </ToolbarContent>
+                {this.state.showCreateShareModal &&
+                <CreateShareModal
+                    handler={this.state.handler}
+                    close={() => this.setState({ showCreateShareModal: false })}
+                /> }
+                {this.state.showEditGlobalSettingsModal &&
+                <EditGlobalSettingsModal
+                    handler={this.state.handler}
+                    close={() => this.setState({ showEditGlobalSettingsModal: false })}
+                /> }
             </Toolbar>
         );
     }

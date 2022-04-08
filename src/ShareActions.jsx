@@ -4,6 +4,7 @@ import {
     DropdownItem,
     KebabToggle,
 } from '@patternfly/react-core';
+import EditShareModal from "./EditShareModal.jsx";
 
 import cockpit from 'cockpit';
 const _ = cockpit.gettext;
@@ -16,7 +17,8 @@ export default class ShareActions extends React.Component {
             width: 0,
             share: props.share,
             handler: props.handler,
-            isKebabOpen: false
+            isKebabOpen: false,
+            isEditShareModalOpen: false
         };
 
         this.cardRef = React.createRef();
@@ -37,6 +39,7 @@ export default class ShareActions extends React.Component {
                     <DropdownItem
                         key={this.state.share + "edit"}
                         component="button"
+                        onClick={() => this.setState({ isEditShareModalOpen: true })}
                     >
                         {_("Edit")}
                     </DropdownItem>,
@@ -55,6 +58,12 @@ export default class ShareActions extends React.Component {
         return (
             <>
                 {actions}
+                {this.state.isEditShareModalOpen &&
+                <EditShareModal
+                    share={this.state.share}
+                    handler={this.state.handler}
+                    close={() => this.setState({ isEditShareModalOpen: false })}
+                /> }
             </>
         );
     }
