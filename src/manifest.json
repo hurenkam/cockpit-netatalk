@@ -1,0 +1,14 @@
+{
+    "version": 2.0,
+
+    "requires": {
+        "cockpit": "137"
+    },
+
+    "menu": {
+        "cockpit-netatalk": {
+            "label": "Apple File Protocol",
+	    "path": "index.html"
+        }
+    }
+}
