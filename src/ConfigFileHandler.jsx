@@ -8,26 +8,11 @@ export default class ConfigFileHandler {
     constructor(onupdate) {
         console.log("ConfigFileHandler.constructor()");
         this.onUpdate = onupdate;
-        // this.updateContent();
 
         cockpit.file('/etc/netatalk/afp.conf').watch(content => {
-            // this.setState({ hostname: content.trim() });
             this.setContent(content);
         });
     }
-
-    // updateContent() {
-    //     console.log("ConfigFileHandler.updateContent()");
-    //     cockpit.file("/etc/netatalk/afp.conf").read()
-    //             .then((content, tag) => {
-    //                 this.setContent(content);
-    //                 this.onUpdate();
-    //             })
-    //             .catch(error => {
-    //                 this.setContent(error);
-    //                 this.onUpdate();
-    //             });
-    // }
 
     setContent(content) {
         console.log("ConfigFileHandler.setContent()");
@@ -51,7 +36,6 @@ export default class ConfigFileHandler {
                         const keyvaluepair = stripped.split('=');
                         const key = keyvaluepair[0].trim();
                         const value = keyvaluepair[1].trim();
-                        // this.sections[section].push(stripped);
                         this.sections[section][key] = value;
                         console.log("ConfigFileHandler.setContent(): Adding property '" + key + "' with value '" + value + "' to section: " + section);
                     }
