@@ -1,0 +1,19 @@
+/* Danger dropdown items should be red */
+.pf-c-dropdown__menu-item.pf-m-danger {
+    color: var(--pf-global--danger-color--200);
+}
+
+#shares .pf-c-table.pf-m-compact .pf-c-table__action {
+    --pf-c-table__action--PaddingTop: 0.5rem;
+    --pf-c-table__action--PaddingBottom: 0.5rem;
+}
+
+.shares .pf-c-expandable-section__content {
+    margin-top: 0px;
+}
+
+/* Upstream issue https://github.com/patternfly/patternfly/pull/3714 */
+.shares .pf-c-toolbar__content-section {
+    gap: var(--pf-global--spacer--sm);
+}
+

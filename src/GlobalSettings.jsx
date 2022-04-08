@@ -1,8 +1,11 @@
 import React from 'react';
 import {
-    Card, CardBody, CardHeader, CardTitle,
+    Card, CardBody, CardHeader, CardActions, CardTitle, Text, TextVariants, Toolbar, ToolbarContent, ToolbarItem, Button
 } from '@patternfly/react-core';
 import { ListingTable } from "cockpit-components-table.jsx";
+
+import cockpit from 'cockpit';
+const _ = cockpit.gettext;
 
 export default class GlobalSettings extends React.Component {
     constructor(props) {
@@ -14,6 +17,25 @@ export default class GlobalSettings extends React.Component {
         };
 
         this.cardRef = React.createRef();
+    }
+
+    renderToolbar() {
+        return (
+            <Toolbar>
+                <ToolbarContent>
+                    <ToolbarItem>
+                        <Button
+                            variant="primary"
+                            key="create-property-action"
+                            id="globalsettings-globalsettings-create-property-btn"
+                            onClick={() => this.setState({ showCreateShareModal: true })}
+                        >
+                            {_("+")}
+                        </Button>
+                    </ToolbarItem>
+                </ToolbarContent>
+            </Toolbar>
+        );
     }
 
     renderProperty(key, value) {
@@ -60,11 +82,13 @@ export default class GlobalSettings extends React.Component {
     render() {
         console.log("GlobalSettings.render()");
         const title = "Global Settings";
+        const toolbar = this.renderToolbar();
         const cardBody = this.renderCard();
         const card = (
             <Card id="globalsettings" className="globalsettings">
                 <CardHeader>
-                    <CardTitle>{title}</CardTitle>
+                    <CardTitle><Text component={TextVariants.h2}>{_(title)}</Text></CardTitle>
+                    <CardActions>{toolbar}</CardActions>
                 </CardHeader>
                 <CardBody>
                     {cardBody}
