@@ -2,6 +2,9 @@ import React from 'react';
 import {
     Card, CardBody, CardHeader, CardActions, CardTitle, Text, TextVariants, Toolbar, ToolbarContent, ToolbarItem, Button
 } from '@patternfly/react-core';
+import {
+    BiFolderPlus, BiCog
+} from "react-icons/bi";
 
 import { ListingTable } from "cockpit-components-table.jsx";
 import './Shares.css';
@@ -26,30 +29,43 @@ export default class Shares extends React.Component {
         this.cardRef = React.createRef();
     }
 
+    renderSettingsButton() {
+        return (
+            <Button
+                className='button-solid'
+                position='right'
+                variant='plain'
+                id="btn-close"
+                isSmall
+                aria-label={_("Add item")}
+                icon={<BiCog size="22" />}
+                onClick={() => this.setState({ showEditGlobalSettingsModal: true })}
+            />
+        );
+    }
+
+    renderAddFolderButton() {
+        return (
+            <Button
+                className='button-solid'
+                position='right'
+                variant='plain'
+                id="btn-close"
+                isSmall
+                aria-label={_("Add item")}
+                icon={<BiFolderPlus size="22" />}
+                onClick={() => this.setState({ showCreateShareModal: true })}
+            />
+        );
+    }
+
     renderToolbar() {
         console.log("Shares.renderToolbar()");
         return (
             <Toolbar>
                 <ToolbarContent>
                     <ToolbarItem>
-                        <Button
-                            variant="secondary"
-                            key="get-new-image-action"
-                            id="shares-shares-edit-settings-btn"
-                            onClick={() => this.setState({ showEditGlobalSettingsModal: true })}
-                        >
-                            {_("Edit Global Settings")}
-                        </Button>
-                    </ToolbarItem>
-                    <ToolbarItem>
-                        <Button
-                            variant="secondary"
-                            key="get-new-image-action"
-                            id="shares-shares-create-share-btn"
-                            onClick={() => this.setState({ showCreateShareModal: true })}
-                        >
-                            {_("Create Share")}
-                        </Button>
+                        {this.renderSettingsButton()}
                     </ToolbarItem>
                 </ToolbarContent>
                 {this.state.showCreateShareModal &&
@@ -64,22 +80,6 @@ export default class Shares extends React.Component {
                 /> }
             </Toolbar>
         );
-    }
-
-    renderProperty(key, value) {
-        console.log("Shares.renderProperty()");
-        const columns = [
-            { title: key },
-            { title: value }
-        ];
-
-        return {
-            columns: columns,
-            props: {
-                key : key,
-                "data-row-id": key,
-            },
-        };
     }
 
     renderRow(key, section) {
@@ -111,7 +111,11 @@ export default class Shares extends React.Component {
         const emptyCaption = "no shares";
         const columnTitles = [
             { title: "Share Name" },
-            { title: "Path" }
+            { title: "Path" },
+            {
+                title: this.renderAddFolderButton(),
+                props: { className: 'pf-c-table__action content-action' }
+            }
         ];
         const shareRows = shares.map(id => this.renderRow(id, sections[id]));
         const cardBody = (
