@@ -43,7 +43,7 @@ export default class ConfigFileHandler {
             }
         });
 
-        this.onUpdate();
+        if (this.onUpdate) this.onUpdate();
     }
 
     getContent() {

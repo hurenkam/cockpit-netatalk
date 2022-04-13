@@ -10,6 +10,8 @@ import {
 } from '@patternfly/react-core';
 
 import cockpit from 'cockpit';
+import UsersAndGroupsHandler from "./UsersAndGroupsHandler.jsx";
+
 const _ = cockpit.gettext;
 
 export default class CreateShareModal extends React.Component {
@@ -22,11 +24,13 @@ export default class CreateShareModal extends React.Component {
             shareName: "",
             path: "",
             timeMachine: false,
+            availableUsers: [],
             users: "",
             limit: "0"
         };
 
         this.cardRef = React.createRef();
+        this.usersAndGroupsHandler = new UsersAndGroupsHandler((users) => this.onValueChanged('availableUsers', users));
     }
 
     onValueChanged(key, value) {
